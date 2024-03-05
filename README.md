@@ -4,6 +4,10 @@ Dripper Vesting Contract Documentation
 
 This document provides an overview of the Dripper contract, a smart contract written in Solidity.
 
+## Contract Flow
+![image](https://github.com/ChanX21/Dripper-Vesting-Contract/assets/47290661/a4b3c703-c053-4e7a-9d23-865fef954db5)
+
+
 ### Functionality
 
 Dripper is a token contract with vesting capabilities. It allows users to lock tokens for a specific period and gradually release them over time. The contract also includes functionalities for administrators to manage vesting agreements and user permissions.
