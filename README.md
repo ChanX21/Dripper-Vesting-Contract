@@ -7,6 +7,9 @@ This document provides an overview of the Dripper contract, a smart contract wri
 ## Contract Flow
 ![image](https://github.com/ChanX21/Dripper-Vesting-Contract/assets/47290661/a4b3c703-c053-4e7a-9d23-865fef954db5)
 
+## Contract UI
+
+![image](https://github.com/ChanX21/Dripper-Vesting-Contract/assets/47290661/26f04a9c-0a00-4437-8ee6-1996dc86513f)
 
 ### Functionality
 
