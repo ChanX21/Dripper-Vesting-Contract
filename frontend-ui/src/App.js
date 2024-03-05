@@ -54,7 +54,7 @@ function App() {
         // operations, which will be performed by the private key
         // that MetaMask manages for the user.
         signer = await provider.getSigner();
-        const contract = new ethers.Contract("0x616b8c48beE78Fa3D2fcE2AD583A69f0012aed4d", abi.abi, signer);
+        const contract = new ethers.Contract("0x5FbDB2315678afecb367f032d93F642f64180aa3", abi.abi, signer);
         setContract(contract);
         setProvider(provider);
         setSigner(signer);
@@ -148,10 +148,9 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header pt-5">
-        <h2>BCX Vesting</h2>
-        {/* <label>Enter the de</label> */}
-        <form className="vesting-form mt-4" onSubmit={handleSubmit}>
+      <header className="App-header">
+        <h2 className="epic-header">Dripper Customized Vesting</h2>
+        <form className="vesting-form" onSubmit={handleSubmit}>
           <div className="input-container">
             <label htmlFor="amount" className="input-label">Amount:</label>
             <input
@@ -161,6 +160,7 @@ function App() {
               onChange={(e) => setVestingInputAmount(e.target.value)}
               required
               className="input-field"
+              placeholder="Enter amount"
             />
           </div>
           <div className="input-container">
@@ -172,6 +172,7 @@ function App() {
               onChange={(e) => setVestingInputRecipient(e.target.value)}
               required
               className="input-field"
+              placeholder="Enter recipient"
             />
           </div>
           <div className="input-container">
@@ -185,62 +186,111 @@ function App() {
               className="input-field"
             />
           </div>
-          <div className="d-flex justify-content-between w-100">
-            <div className="vest-input-container col-6">
-              <label htmlFor="vesting-period" className="input-label">Vesting Period:</label>
-              <input
-                type="number"
-                id="vesting-period"
-                value={vestingInputVestingPeriod}
-                onChange={(e) => setVestingInputVestingPeriod(e.target.value)}
-                required
-                className="vest-period-field"
-              />
-            </div>
-            <div className="vest-input-container col-6">
-              <label htmlFor="period-size" className="input-label">Period Size:</label>
-              <input
-                type="number"
-                id="period-size"
-                value={vestingInputPeriodSize}
-                onChange={(e) => setVestingInputPeriodSize(e.target.value)}
-                required
-                className="vest-period-field"
-              />
-            </div>
+          <div className="vest-input-container">
+            <label htmlFor="vesting-period" className="input-label">Vesting Period:</label>
+            <input
+              type="number"
+              id="vesting-period"
+              value={vestingInputVestingPeriod}
+              onChange={(e) => setVestingInputVestingPeriod(e.target.value)}
+              required
+              className="vest-period-field"
+              placeholder="Enter vesting period"
+            />
+          </div>
+          <div className="vest-input-container">
+            <label htmlFor="period-size" className="input-label">Period Size:</label>
+            <input
+              type="number"
+              id="period-size"
+              value={vestingInputPeriodSize}
+              onChange={(e) => setVestingInputPeriodSize(e.target.value)}
+              required
+              className="vest-period-field"
+              placeholder="Enter period size"
+            />
           </div>
           <button type="submit" className="submit-button">Submit</button>
         </form>
-        <br /><div>
-          <div>
+        <div className="additional-info">
+          <div className="get-vest">
             <label>Get Vest</label>
-            <div> <input placeholder='Wallet Address' onChange={(e) => setGetVestWalletAddress(e.target.value)} ></input><input placeholder='Vest Number' onChange={(e) => setGetVestIndex(e.target.value)}></input> <button type="submit" className="submit-button" onClick={submitGetVestForm}>Submit</button></div>
-            {vestingAgreement ? <div>
-              Vesting Start Time : {new Date(vestingAgreement.vestStart * 1000).toLocaleString()} <br></br>
-              Vesting Period : {vestingAgreement.vestPeriod}<br></br>
-              Vesting Period Size : {vestingAgreement.vestPeriodSize}<br></br>
-              Amount : {vestingAgreement.totalAmount}<br></br>
-              Sender : {vestingAgreement.sender}<br></br>
-              Receiver : {vestingAgreement.recipient}<br></br>
-              Amount Withdraw : {vestingAgreement.amountWithdrawn}<br></br>
-            </div> : <></>}
+            <div className="get-vest-inputs">
+              <input
+                placeholder='Wallet Address'
+                onChange={(e) => setGetVestWalletAddress(e.target.value)}
+                className="input-field"
+              />
+              <input
+                placeholder='Vest Number'
+                onChange={(e) => setGetVestIndex(e.target.value)}
+                className="input-field"
+              />
+              <button type="submit" className="submit-button" onClick={submitGetVestForm}>Submit</button>
+            </div>
+            {vestingAgreement ? (
+              <div className="vesting-agreement-info">
+                <p>Vesting Start Time: {new Date(vestingAgreement.vestStart * 1000).toLocaleString()}</p>
+                <p>Vesting Period: {vestingAgreement.vestPeriod}</p>
+                <p>Vesting Period Size: {vestingAgreement.vestPeriodSize}</p>
+                <p>Amount: {vestingAgreement.totalAmount}</p>
+                <p>Sender: {vestingAgreement.sender}</p>
+                <p>Receiver: {vestingAgreement.recipient}</p>
+                <p>Amount Withdrawn: {vestingAgreement.amountWithdrawn}</p>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
-          <div>Withdraw <br></br>
-            <input placeholder='Sender Address' onChange={(e) => setWithdrawWalletAddress(e.target.value)}></input>
-            <input placeholder='Index' onChange={(e) => setWithdrawIndex(e.target.value)}></input>
-            <input placeholder='Amount to Withdraw' onChange={(e) => setWithdrawAmount(e.target.value)}></input>
-            <button type="submit" className="submit-button" onClick={submitWithdrawForm}>Submit</button>
+          <div className="withdraw">
+            <label>Withdraw</label>
+            <div className="withdraw-inputs">
+              <input
+                placeholder='Sender Address'
+                onChange={(e) => setWithdrawWalletAddress(e.target.value)}
+                className="input-field"
+              />
+              <input
+                placeholder='Index'
+                onChange={(e) => setWithdrawIndex(e.target.value)}
+                className="input-field"
+              />
+              <input
+                placeholder='Amount to Withdraw'
+                onChange={(e) => setWithdrawAmount(e.target.value)}
+                className="input-field"
+              />
+              <button type="submit" className="submit-button" onClick={submitWithdrawForm}>Submit</button>
+            </div>
           </div>
-          <div>Get Withdrawable Amount <br></br>
-            <input placeholder='Sender Address' onChange={(e) => setWithdrawableAmountAddress(e.target.value)}></input>
-            <input placeholder='Index' onChange={(e) => setWithdrawableAmountIndex(e.target.value)}></input>
-            <button type="submit" className="submit-button" onClick={submitWithdrawableAmountForm}>Submit</button> <br></br>
-            {withdrawableAmount? <div>Withdrawable Amount : {withdrawableAmount} </div> : <></>}
+          <div className="get-withdrawable-amount">
+            <label>Get Withdrawable Amount</label>
+            <div className="get-withdrawable-amount-inputs">
+              <input
+                placeholder='Sender Address'
+                onChange={(e) => setWithdrawableAmountAddress(e.target.value)}
+                className="input-field"
+              />
+              <input
+                placeholder='Index'
+                onChange={(e) => setWithdrawableAmountIndex(e.target.value)}
+                className="input-field"
+              />
+              <button type="submit" className="submit-button" onClick={submitWithdrawableAmountForm}>Submit</button>
+            </div>
+            {withdrawableAmount ? (
+              <div className="withdrawable-amount-info">
+                <p>Withdrawable Amount: {withdrawableAmount}</p>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </header>
     </div>
   );
+  
 }
 
 export default App;
