@@ -65,4 +65,20 @@ The contract defines the following custom errors:
 
 -   The contract utilizes access control mechanisms to ensure only authorized users can
 -   A simple UI interface is provided for with file name ``frontend-ui``
+-   
+# WARNING: Use with Caution
+
+🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+
+## This is an Unaudited Contract
+
+🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+Please be advised that this contract has not been audited for security or reliability. Usage of this contract comes with inherent risks. 
+
+Before engaging with this contract, it is strongly recommended that you:
+
+- Conduct your own thorough review of the code.
+- Understand the potential risks involved.
+- Exercise caution and prudence when interacting with this contract.
 
